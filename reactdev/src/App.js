@@ -15,12 +15,18 @@ class App extends Component {
     console.log(this.state);
     return (
       <div className="App">
-        <Route exact path="/" render={props => <MainCards />} />
+        <Route
+          exact
+          path="/"
+          render={props => <MainCards journalData={this.state.journalData} />}
+        />
         {this.state.journalData.map((week, i) => (
           <div>
             <Route
               path={`/week${i + 1}`}
-              render={props => <Week {...props} week={week} />}
+              render={props => (
+                <Week {...props} week={week} github={this.state.githubHandle} />
+              )}
             />
           </div>
         ))}
