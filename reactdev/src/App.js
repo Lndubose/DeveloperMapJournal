@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
 import { journalData } from './journalData.js';
+import Week from './components/Week';
+import MainCards from './components/MainCards';
 
 class App extends Component {
   state = {
@@ -10,7 +12,20 @@ class App extends Component {
   };
 
   render() {
-    return <div className="App" />;
+    console.log(this.state);
+    return (
+      <div className="App">
+        <Route exact path="/" render={props => <MainCards />} />
+        {this.state.journalData.map((week, i) => (
+          <div>
+            <Route
+              path={`/week${i + 1}`}
+              render={props => <Week {...props} week={week} />}
+            />
+          </div>
+        ))}
+      </div>
+    );
   }
 }
 
